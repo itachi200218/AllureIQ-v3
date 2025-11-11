@@ -204,6 +204,15 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- ✅ Maven Deploy Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <altDeploymentRepository>github::default::https://maven.pkg.github.com/itachi200218/AllureIQ-FrameWork</altDeploymentRepository>
+                </configuration>
+            </plugin>
 
         </plugins>
     </build>
