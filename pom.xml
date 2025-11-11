@@ -13,8 +13,8 @@
 
     <groupId>com.allureiq</groupId>
     <artifactId>AllureIQ-Framework</artifactId>
-    <version>3.0.0</version>
-    <packaging>jar</packaging> <!-- ✅ makes this project build as a JAR -->
+    <version>3.0.2</version> <!-- ✅ bumped version -->
+    <packaging>jar</packaging>
     <name>AllureIQ – AI-Powered Automation Framework</name>
     <description>AllureIQ: Smart, Scalable, AI-driven API Automation Framework with Allure, MongoDB, and Gemini Integration.</description>
 
@@ -138,7 +138,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <skip>true</skip> <!-- ✅ skip executable JAR build -->
+                    <skip>true</skip>
                 </configuration>
             </plugin>
 
@@ -204,20 +204,21 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- ✅ Maven Deploy Plugin -->
+
+            <!-- ✅ Maven Deploy Plugin (new syntax) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
                 <version>3.1.1</version>
                 <configuration>
-                    <altDeploymentRepository>github::default::https://maven.pkg.github.com/itachi200218/AllureIQ-FrameWork</altDeploymentRepository>
+                    <altDeploymentRepository>github::https://maven.pkg.github.com/itachi200218/AllureIQ-FrameWork</altDeploymentRepository>
                 </configuration>
             </plugin>
 
         </plugins>
     </build>
 
-    <!-- ✅ Add this block here -->
+    <!-- ✅ Distribution Management -->
     <distributionManagement>
         <repository>
             <id>github</id>
