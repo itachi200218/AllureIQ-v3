@@ -208,4 +208,13 @@
         </plugins>
     </build>
 
+    <!-- ✅ Add this block here -->
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages - AllureIQ</name>
+            <url>https://maven.pkg.github.com/itachi200218/AllureIQ-FrameWork</url>
+        </repository>
+    </distributionManagement>
+
 </project>
