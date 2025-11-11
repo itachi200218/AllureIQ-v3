@@ -3,7 +3,7 @@ name: Build and Publish AllureIQ Maven Package
 on:
   push:
     tags:
-      - 'v*'  # Runs when you push a tag like v3.0.28
+      - 'v*'  # Example: v3.0.30
 
 permissions:
   contents: read
@@ -17,14 +17,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Java
+      - name: Set up Java for Maven
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
           server-id: github
+          settings-path: ${{ github.workspace }}   # 👈 important
           server-username: GITHUB_ACTOR
           server-password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and Publish with Maven
-        run: mvn -B clean deploy -DskipTests
+        run: mvn -B clean deploy -DskipTests -s ${{ github.workspace }}/settings.xml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
