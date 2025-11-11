@@ -11,22 +11,24 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.allureiq</groupId>
-    <artifactId>AllureIQ-Framework</artifactId>
-    <version>3.0.30</version>
-    <packaging>jar</packaging>
+    
+  <groupId>com.allureiq</groupId>
+  <artifactId>AllureIQ-Framework</artifactId>
+  <version>3.0.30</version>
+  <packaging>jar</packaging>
 
-    <name>AllureIQ – AI-Powered Automation Framework</name>
-    <description>AllureIQ: Smart, Scalable, AI-driven API Automation Framework with Allure, MongoDB, and Gemini Integration.</description>
-    <url>https://github.com/itachi200218/AllureIQ-v3</url>
+  <name>AllureIQ – AI-Powered Automation Framework</name>
+  <description>AllureIQ: Smart, Scalable, AI-driven API Automation Framework with Allure, MongoDB, and Gemini Integration.</description>
+  <url>https://github.com/itachi200218/AllureIQ-v3</url>
 
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>GitHub Packages - AllureIQ</name>
-            <url>https://maven.pkg.github.com/itachi200218/AllureIQ-v3</url>
-        </repository>
-    </distributionManagement>
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub Packages - AllureIQ</name>
+      <url>https://maven.pkg.github.com/itachi200218/AllureIQ-v3</url>
+    </repository>
+  </distributionManagement>
+
     <properties>
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
