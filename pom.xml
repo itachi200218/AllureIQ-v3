@@ -14,7 +14,7 @@
     
   <groupId>com.allureiq</groupId>
   <artifactId>AllureIQ-Framework</artifactId>
-  <version>3.0.31</version>
+  <version>3.1.0</version>
   <packaging>jar</packaging>
 
   <name>AllureIQ – AI-Powered Automation Framework</name>
