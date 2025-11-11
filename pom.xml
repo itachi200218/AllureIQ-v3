@@ -13,8 +13,8 @@
 
     
   <groupId>com.allureiq</groupId>
-  <artifactId>AllureIQ-Framework</artifactId>
-  <version>3.1.1</version>
+ <artifactId>allureiq-framework</artifactId>
+<version>3.1.2</version>
   <packaging>jar</packaging>
 
   <name>AllureIQ – AI-Powered Automation Framework</name>
@@ -218,15 +218,14 @@
 
             <!-- ✅ Maven Deploy Plugin (new syntax) -->
 <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-deploy-plugin</artifactId>
-    <version>3.1.1</version>
-    <configuration>
-        <!-- ✅ FIXED: removed the old ::default:: which breaks GitHub Packages -->
-        <altDeploymentRepository>github::https://maven.pkg.github.com/itachi200218/AllureIQ-v3</altDeploymentRepository>
-    </configuration>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-deploy-plugin</artifactId>
+  <version>3.1.1</version>
+  <configuration>
+    <!-- ✅ Correct GitHub Maven repository format -->
+    <altDeploymentRepository>github::default::https://maven.pkg.github.com/itachi200218/AllureIQ-v3</altDeploymentRepository>
+  </configuration>
 </plugin>
-
 
 
         </plugins>
