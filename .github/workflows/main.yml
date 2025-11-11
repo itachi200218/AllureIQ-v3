@@ -1,0 +1,31 @@
+name: Build and Publish AllureIQ Maven Package
+
+on:
+  push:
+    tags:
+      - 'v*'  # Runs when you push a tag like v3.0.5
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java and Maven for GitHub Packages
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          server-id: github
+          server-username: GITHUB_ACTOR
+          server-password: ${{ secrets.GITHUB_TOKEN }}
+          settings-path: ${{ github.workspace }}
+
+      - name: Build and Deploy package
+        run: mvn -B -s $GITHUB_WORKSPACE/settings.xml clean deploy
