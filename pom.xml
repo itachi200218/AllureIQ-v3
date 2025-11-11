@@ -14,7 +14,7 @@
     
   <groupId>com.allureiq</groupId>
   <artifactId>AllureIQ-Framework</artifactId>
-  <version>3.0.30</version>
+  <version>3.0.31</version>
   <packaging>jar</packaging>
 
   <name>AllureIQ – AI-Powered Automation Framework</name>
@@ -217,18 +217,15 @@
             </plugin>
 
             <!-- ✅ Maven Deploy Plugin (new syntax) -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>3.1.1</version>
-                <configuration>
-                    <!-- 🔥 Important: Add default:: before URL -->
-                    <altDeploymentRepository>
-                        github::https://maven.pkg.github.com/itachi200218/AllureIQ-v3
-                    </altDeploymentRepository>
+           <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-deploy-plugin</artifactId>
+    <version>3.1.1</version>
+    <configuration>
+        <altDeploymentRepository>github::default::https://maven.pkg.github.com/itachi200218/AllureIQ-v3</altDeploymentRepository>
+    </configuration>
+</plugin>
 
-                </configuration>
-            </plugin>
 
         </plugins>
     </build>
