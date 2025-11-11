@@ -217,14 +217,16 @@
             </plugin>
 
             <!-- ✅ Maven Deploy Plugin (new syntax) -->
-           <plugin>
+<plugin>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-deploy-plugin</artifactId>
     <version>3.1.1</version>
     <configuration>
-        <altDeploymentRepository>github::default::https://maven.pkg.github.com/itachi200218/AllureIQ-v3</altDeploymentRepository>
+        <!-- ✅ FIXED: removed the old ::default:: which breaks GitHub Packages -->
+        <altDeploymentRepository>github::https://maven.pkg.github.com/itachi200218/AllureIQ-v3</altDeploymentRepository>
     </configuration>
 </plugin>
+
 
 
         </plugins>
