@@ -3,7 +3,7 @@ name: Build and Publish AllureIQ Maven Package
 on:
   push:
     tags:
-      - 'v*'  # Example: v3.0.30
+      - 'v*'  # Example: v3.1.0
 
 permissions:
   contents: read
@@ -22,12 +22,26 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-          server-id: github
-          settings-path: ${{ github.workspace }}   # 👈 important
-          server-username: GITHUB_ACTOR
-          server-password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Maven settings
+        run: |
+          mkdir -p ~/.m2
+          cat > ~/.m2/settings.xml <<EOF
+          <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                                http://maven.apache.org/xsd/settings-1.0.0.xsd">
+            <servers>
+              <server>
+                <id>github</id>
+                <username>${{ github.actor }}</username>
+                <password>${{ secrets.GITHUB_TOKEN }}</password>
+              </server>
+            </servers>
+          </settings>
+          EOF
 
       - name: Build and Publish with Maven
-        run: mvn -B clean deploy -DskipTests -s ${{ github.workspace }}/settings.xml
+        run: mvn -B clean deploy -DskipTests
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
