@@ -10,10 +10,9 @@
         <version>3.2.2</version>
         <relativePath/>
     </parent>
-
     <groupId>com.allureiq</groupId>
     <artifactId>AllureIQ-Framework</artifactId>
-    <version>3.0.5</version>
+    <version>3.0.12</version> <!-- bump version -->
     <packaging>jar</packaging>
 
     <name>AllureIQ – AI-Powered Automation Framework</name>
@@ -35,51 +34,56 @@
     </properties>
 
     <dependencies>
-        <!-- Spring Boot -->
+        <!-- ✅ Spring Boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
 
-        <!-- RestAssured -->
+        <!-- ✅ RestAssured -->
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <version>5.4.0</version>
         </dependency>
+
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>json-path</artifactId>
             <version>5.4.0</version>
         </dependency>
 
-        <!-- Allure -->
+        <!-- ✅ Allure -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
             <version>${allure.version}</version>
         </dependency>
+
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-rest-assured</artifactId>
             <version>${allure.version}</version>
         </dependency>
 
-        <!-- Testing -->
+        <!-- ✅ Test frameworks -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>7.10.2</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -87,40 +91,41 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Gson + OkHttp -->
+        <!-- ✅ Gson + OkHttp for Gemini API -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.11.0</version>
         </dependency>
+
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
             <version>4.12.0</version>
         </dependency>
 
-        <!-- Dotenv -->
+        <!-- ✅ dotenv -->
         <dependency>
             <groupId>io.github.cdimascio</groupId>
             <artifactId>dotenv-java</artifactId>
             <version>3.0.0</version>
         </dependency>
 
-        <!-- Logging -->
+        <!-- ✅ Logging -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>2.20.0</version>
         </dependency>
 
-        <!-- Faker -->
+        <!-- ✅ Faker for test data -->
         <dependency>
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
             <version>1.0.2</version>
         </dependency>
 
-        <!-- Excel -->
+        <!-- ✅ Excel (Apache POI) -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
@@ -136,6 +141,8 @@
 
     <build>
         <plugins>
+
+            <!-- ✅ Spring Boot Plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -144,6 +151,7 @@
                 </configuration>
             </plugin>
 
+            <!-- ✅ Surefire Plugin for TestNG -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -158,12 +166,14 @@
                 </configuration>
             </plugin>
 
+            <!-- ✅ Allure Maven Plugin -->
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
                 <version>2.12.0</version>
             </plugin>
 
+            <!-- ✅ Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -174,6 +184,7 @@
                 </configuration>
             </plugin>
 
+            <!-- ✅ Include Source Code in JAR -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
@@ -188,6 +199,7 @@
                 </executions>
             </plugin>
 
+            <!-- ✅ Include Javadoc in JAR -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -202,12 +214,19 @@
                 </executions>
             </plugin>
 
+            <!-- ✅ Maven Deploy Plugin (new syntax) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
                 <version>3.1.1</version>
+                <configuration>
+                    <altDeploymentRepository>github::https://maven.pkg.github.com/itachi200218/AllureIQ-FrameWork</altDeploymentRepository>
+                </configuration>
             </plugin>
+
+
         </plugins>
     </build>
+
 
 </project>
