@@ -10,6 +10,7 @@
         <version>3.2.2</version>
         <relativePath/>
     </parent>
+
     <groupId>com.allureiq</groupId>
     <artifactId>AllureIQ-Framework</artifactId>
     <version>3.0.19</version> <!-- bump version -->
@@ -17,13 +18,13 @@
 
     <name>AllureIQ – AI-Powered Automation Framework</name>
     <description>AllureIQ: Smart, Scalable, AI-driven API Automation Framework with Allure, MongoDB, and Gemini Integration.</description>
-    <url>https://github.com/itachi200218/AllureIQ-FrameWork</url>
+    <url>https://github.com/itachi200218/AllureIQ-v3</url>
 
     <distributionManagement>
         <repository>
             <id>github</id>
             <name>GitHub Packages - AllureIQ</name>
-            <url>https://maven.pkg.github.com/itachi200218/AllureIQ-FrameWork</url>
+            <url>https://maven.pkg.github.com/itachi200218/AllureIQ-v3</url>
         </repository>
     </distributionManagement>
 
@@ -220,13 +221,11 @@
                 <artifactId>maven-deploy-plugin</artifactId>
                 <version>3.1.1</version>
                 <configuration>
-                    <altDeploymentRepository>github::https://maven.pkg.github.com/itachi200218/AllureIQ-FrameWork</altDeploymentRepository>
+                    <altDeploymentRepository>github::https://maven.pkg.github.com/itachi200218/AllureIQ-v3</altDeploymentRepository>
                 </configuration>
             </plugin>
 
-
         </plugins>
     </build>
-
 
 </project>
