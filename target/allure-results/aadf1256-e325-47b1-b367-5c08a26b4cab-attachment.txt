@@ -1,0 +1,140 @@
+[
+    {
+        "_id": "6914a14649ac1ed96750ef8d",
+        "company": "Tech Innovations Inc.",
+        "role": "Software Engineer",
+        "status": "Rejected",
+        "appliedDate": "2023-09-15T00:00:00.000Z",
+        "__v": 0
+    },
+    {
+        "_id": "69125ac800b6e6ad4d07efc5",
+        "company": "Tech Innovations LLC",
+        "role": "Software Engineer",
+        "status": "Rejected",
+        "appliedDate": "2023-07-15T00:00:00.000Z",
+        "__v": 0
+    },
+    {
+        "_id": "691235b2959f07be60d0aba1",
+        "company": "Tech Innovations Inc.",
+        "role": "Software Engineer",
+        "status": "Rejected",
+        "appliedDate": "2023-07-15T00:00:00.000Z",
+        "__v": 0
+    },
+    {
+        "_id": "6911db6ccd129e327c77221a",
+        "company": "Tech Innovations Inc.",
+        "role": "Software Engineer",
+        "status": "Rejected",
+        "appliedDate": "2023-07-15T00:00:00.000Z",
+        "__v": 0
+    },
+    {
+        "_id": "691268fc6afa07633ecee7ab",
+        "company": "Tech Solutions Inc.",
+        "role": "Software Engineer",
+        "status": "Rejected",
+        "appliedDate": "2023-06-15T00:00:00.000Z",
+        "__v": 0
+    },
+    {
+        "_id": "67f6ce82dcb0837b74b7fac8",
+        "company": "Airbnb",
+        "role": "Backend Developer",
+        "status": "Offer",
+        "appliedDate": "2023-02-28T00:00:00.000Z",
+        "link": "https://airbnb.com",
+        "__v": 0
+    },
+    {
+        "_id": "67f6ce82dcb0837b74b7facc",
+        "company": "Adobe",
+        "role": "Data Engineer",
+        "status": "Offer",
+        "appliedDate": "2021-06-16T00:00:00.000Z",
+        "link": "https://adobe.com",
+        "__v": 0
+    },
+    {
+        "_id": "69122bef8c225a5d6af82d94",
+        "status": "Applied",
+        "__v": 0
+    },
+    {
+        "_id": "69136b472e1548c53ba33f5c",
+        "status": "Applied",
+        "__v": 0
+    },
+    {
+        "_id": "69135eebeae34b738abddcea",
+        "status": "Applied",
+        "__v": 0
+    },
+    {
+        "_id": "69134b7cd522ca991e510ff0",
+        "status": "Applied",
+        "__v": 0
+    },
+    {
+        "_id": "69134a0dd522ca991e510feb",
+        "status": "Applied",
+        "__v": 0
+    },
+    {
+        "_id": "690a9028a717cd9f7d87daa9",
+        "status": "Applied",
+        "__v": 0
+    },
+    {
+        "_id": "690a93fda717cd9f7d87dac7",
+        "status": "Applied",
+        "__v": 0
+    },
+    {
+        "_id": "6910cd3787b1843fe9222029",
+        "status": "Applied",
+        "__v": 0
+    },
+    {
+        "_id": "6910ce3487b1843fe9222038",
+        "status": "Applied",
+        "__v": 0
+    },
+    {
+        "_id": "69122b928c225a5d6af82d8f",
+        "status": "Applied",
+        "__v": 0
+    },
+    {
+        "_id": "69122b598c225a5d6af82d8a",
+        "status": "Applied",
+        "__v": 0
+    },
+    {
+        "_id": "691225788c225a5d6af82d85",
+        "status": "Applied",
+        "__v": 0
+    },
+    {
+        "_id": "69121bf3b6118775154ddfed",
+        "status": "Applied",
+        "__v": 0
+    },
+    {
+        "_id": "6910cd5a87b1843fe922202e",
+        "status": "Applied",
+        "__v": 0
+    },
+    {
+        "_id": "6911cdbbcd129e327c7721f8",
+        "status": "Applied",
+        "__v": 0
+    },
+    {
+        "_id": "6911cd4bcd129e327c7721f3",
+        "status": "Applied",
+        "__v": 0
+    }
+]
