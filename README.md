@@ -100,15 +100,6 @@ Data stored in MongoDB:
 
 ---
 
-### 👨‍💻 Author
-**Adepu Chaitanya**  
-**Role:** SDET (Software Development Engineer in Test)  
-**Organization:** Cognizant Technology Solutions  
-**Specialization:** Automation Frameworks, AI-driven Testing, CI/CD, Spring Boot, and Data Intelligence  
-**Version:** `allureiq-framework v3.2.2`
-
----
-
 ## 📦 Maven Setup
 ```xml
 <!-- ✅ Public GitHub Package Repository -->
@@ -166,3 +157,12 @@ mvn clean install
 ## Serve the AI-powered Allure report:
 ```xml
 allure serve ./allure-results
+
+
+---
+### 👨‍💻 Author
+**Adepu Chaitanya**  
+**Role:** SDET (Software Development Engineer in Test)  
+**Organization:** Cognizant Technology Solutions  
+**Specialization:** Automation Frameworks, AI-driven Testing, CI/CD, Spring Boot, and Data Intelligence  
+**Version:** `allureiq-framework v3.2.2`
