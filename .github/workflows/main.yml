@@ -3,9 +3,9 @@ name: Build and Publish AllureIQ Maven Package
 on:
   push:
     tags:
-      - '*'            # ✅ Triggers on ANY new tag (not just ones starting with v)
+      - '*'
   release:
-    types: [published] # ✅ Also triggers when a new release is published from GitHub UI
+    types: [published]
 
 permissions:
   contents: read
@@ -48,5 +48,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Make Package Public
+        run: |
+          curl -X PATCH \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          https://api.github.com/user/packages/maven/com.allureiq.allureiq-framework/visibility \
+          -d '{"visibility":"public"}'
+
       - name: Confirm Publish Success
-        run: echo "✅ AllureIQ Maven package successfully deployed to GitHub Packages!"
+        run: echo "✅ AllureIQ Maven package successfully deployed and made public!"
