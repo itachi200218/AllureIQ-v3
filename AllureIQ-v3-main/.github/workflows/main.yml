@@ -3,7 +3,9 @@ name: Build and Publish AllureIQ Maven Package
 on:
   push:
     tags:
-      - 'v*'  # Example: v3.1.0
+      - 'v*'          # Triggers when a tag like v3.1.0 is pushed
+  release:
+    types: [published] # ✅ Also triggers automatically when a new release is published from GitHub UI
 
 permissions:
   contents: read
@@ -45,3 +47,6 @@ jobs:
         run: mvn -B clean deploy -DskipTests
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Confirm Publish Success
+        run: echo "✅ AllureIQ Maven package has been successfully deployed to GitHub Packages!"
