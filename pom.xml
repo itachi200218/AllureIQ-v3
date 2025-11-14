@@ -11,23 +11,36 @@
         <relativePath/>
     </parent>
 
+    <groupId>com.allureiq</groupId>
+    <artifactId>allureiq-framework</artifactId>
+    <version>3.2.2</version>
+    <packaging>jar</packaging>
 
-  <groupId>com.allureiq</groupId>
- <artifactId>allureiq-framework</artifactId>
-<version>3.2.2</version>
-  <packaging>jar</packaging>
+    <name>AllureIQ – AI-Powered Automation Framework</name>
+    <description>AllureIQ: Smart, Scalable, AI-driven API Automation Framework with Allure, MongoDB, and Gemini Integration.</description>
+    <url>https://github.com/itachi200218/AllureIQ-v3</url>
 
-  <name>AllureIQ – AI-Powered Automation Framework</name>
-  <description>AllureIQ: Smart, Scalable, AI-driven API Automation Framework with Allure, MongoDB, and Gemini Integration.</description>
-  <url>https://github.com/itachi200218/AllureIQ-v3</url>
+    <!-- =======================
+         DEPLOY TO GITHUB
+         ======================= -->
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages - AllureIQ</name>
+            <url>https://maven.pkg.github.com/itachi200218/AllureIQ-v3</url>
+        </repository>
+    </distributionManagement>
 
-  <distributionManagement>
-    <repository>
-      <id>github</id>
-      <name>GitHub Packages - AllureIQ</name>
-      <url>https://maven.pkg.github.com/itachi200218/AllureIQ-v3</url>
-    </repository>
-  </distributionManagement>
+    <!-- =======================
+         DOWNLOAD FROM GITHUB
+         (THIS WAS MISSING)
+         ======================= -->
+    <repositories>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/itachi200218/AllureIQ-v3</url>
+        </repository>
+    </repositories>
 
     <properties>
         <java.version>17</java.version>
@@ -36,7 +49,7 @@
     </properties>
 
     <dependencies>
-        <!-- ✅ Spring Boot -->
+        <!-- Spring Boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -52,7 +65,7 @@
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
 
-        <!-- ✅ RestAssured -->
+        <!-- RestAssured -->
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
@@ -65,7 +78,7 @@
             <version>5.4.0</version>
         </dependency>
 
-        <!-- ✅ Allure -->
+        <!-- Allure -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
@@ -78,7 +91,7 @@
             <version>${allure.version}</version>
         </dependency>
 
-        <!-- ✅ Test frameworks -->
+        <!-- Test frameworks -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
@@ -93,7 +106,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- ✅ Gson + OkHttp for Gemini API -->
+        <!-- Gson + OkHttp -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
@@ -106,28 +119,28 @@
             <version>4.12.0</version>
         </dependency>
 
-        <!-- ✅ dotenv -->
+        <!-- dotenv -->
         <dependency>
             <groupId>io.github.cdimascio</groupId>
             <artifactId>dotenv-java</artifactId>
             <version>3.0.0</version>
         </dependency>
 
-        <!-- ✅ Logging -->
+        <!-- Logging -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>2.20.0</version>
         </dependency>
 
-        <!-- ✅ Faker for test data -->
+        <!-- Faker -->
         <dependency>
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
             <version>1.0.2</version>
         </dependency>
 
-        <!-- ✅ Excel (Apache POI) -->
+        <!-- Apache POI -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
@@ -144,7 +157,7 @@
     <build>
         <plugins>
 
-            <!-- ✅ Spring Boot Plugin -->
+            <!-- Spring Boot Plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -153,7 +166,7 @@
                 </configuration>
             </plugin>
 
-            <!-- ✅ Surefire Plugin for TestNG -->
+            <!-- Surefire -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -168,14 +181,14 @@
                 </configuration>
             </plugin>
 
-            <!-- ✅ Allure Maven Plugin -->
+            <!-- Allure Maven -->
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
                 <version>2.12.0</version>
             </plugin>
 
-            <!-- ✅ Compiler Plugin -->
+            <!-- Compiler -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -186,7 +199,7 @@
                 </configuration>
             </plugin>
 
-            <!-- ✅ Include Source Code in JAR -->
+            <!-- Sources -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
@@ -201,7 +214,7 @@
                 </executions>
             </plugin>
 
-            <!-- ✅ Include Javadoc in JAR -->
+            <!-- Javadocs -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -216,17 +229,17 @@
                 </executions>
             </plugin>
 
-            <!-- ✅ Maven Deploy Plugin (new syntax) -->
-<plugin>
-  <groupId>org.apache.maven.plugins</groupId>
-  <artifactId>maven-deploy-plugin</artifactId>
-  <version>3.1.1</version>
-  <configuration>
-    <!-- ✅ Correct GitHub Maven repository format -->
-    <altDeploymentRepository>github::default::https://maven.pkg.github.com/itachi200218/AllureIQ-v3</altDeploymentRepository>
-  </configuration>
-</plugin>
-
+            <!-- Deploy Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <altDeploymentRepository>
+                        github::default::https://maven.pkg.github.com/itachi200218/AllureIQ-v3
+                    </altDeploymentRepository>
+                </configuration>
+            </plugin>
 
         </plugins>
     </build>
