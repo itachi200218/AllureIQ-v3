@@ -1,0 +1,71 @@
+    <html>
+    <head>
+    <meta charset='UTF-8'>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background:#f5f7fa; padding:25px; }
+        h2 { color:#0078D7; margin-bottom:5px; }
+        h3 { color:#333; }
+        .timestamp { color:#666; font-size:14px; margin-bottom:12px; }
+        .card {
+            background:#fff; border-radius:12px; padding:20px; margin-bottom:20px;
+            box-shadow:0 4px 10px rgba(0,0,0,0.08);
+        }
+        .summary { border-left:6px solid #0078D7; }
+        .issues { border-left:6px solid #DC3545; }
+        .rootcause { border-left:6px solid #FFC107; }
+        .suggestions { border-left:6px solid #28A745; }
+        .endpoints { border-left:6px solid #6C63FF; }
+        .errors { border-left:6px solid #FF5733; }
+        ul { padding-left:20px; }
+        li { margin:6px 0; line-height:1.6; }
+        .endpoint-list li::before { content: "🌐 "; }
+        .issue-list li::before { content: "⚠️ "; }
+        .suggestion-list li::before { content: "💡 "; }
+        .rootcause-list li::before { content: "🧠 "; }
+        .error-list li::before { content: "❌ "; }
+        details { margin-bottom:15px; }
+        summary { cursor:pointer; font-weight:600; }
+        .comparison { color:#222; font-size:15px; margin-bottom:12px; line-height:1.5; }
+    </style>
+    </head>
+    <body>
+        <h2>🤖 AI Test Intelligence Report — Unified View</h2>
+        <div class='timestamp'>🕒 Generated: 2025-11-15T13:05:00.618668600</div>
+
+        <div class='card summary'>
+            <h3>🧾 Overall Summary</h3>
+            <p>A total of 10 unique APIs were tested across various authentication and user management functionalities, achieving a 100% success rate with all endpoints returning HTTP 200 status codes. The tests included authentication (register, login, logout), CRUD operations (user retrieval and deletion), and integration endpoints (dashboard statistics and admin user management).</p>
+        </div>
+
+        <div class='card issues'>
+            <h3>⚠️ Key Issues</h3>
+            <ul class='issue-list'>📊 No API executions found in MongoDB (ai_executions).</ul>
+        </div>
+
+        <div class='card rootcause'>
+            <h3>🧠 Technical Root Cause Insights</h3>
+            <ul class='rootcause-list'><li>- No significant failures were encountered in the test logs. All endpoints returned successful HTTP 200 codes.</li></ul>
+        </div>
+
+        <div class='card suggestions'>
+            <h3>💡 Suggestions</h3>
+            <ul class='suggestion-list'><li>- As there are no failed requests or errors logged, no specific technical causes can be identified at this time.</li></ul>
+        </div>
+
+        <div class='card endpoints'>
+            <h3>🌐 Endpoints Tested</h3>
+            <ul class='endpoint-list'><li>- Implement validation checks for input parameters in authentication and user management endpoints to enhance security.</li><li>- Consider adding comprehensive logging for user actions which can help in debugging and reviewing usage patterns.</li><li>- Incorporate rate-limiting and retry mechanisms for high-load endpoints to improve performance under pressure.</li></ul>
+        </div>
+
+        <div class='card errors'>
+            <h3>❌ Error Breakdown</h3>
+            <details open>
+                <summary>Click to view error logs</summary>
+                <pre><li>- POST /api/auth/register → 200 | User successfully registered.</li><li>- POST /api/auth/login → 200 | User successfully logged in.</li><li>- GET /api/auth/check → 200 | Valid authentication check.</li><li>- GET /api/auth/logout → 200 | User successfully logged out.</li><li>- GET /api/auth/users → 200 | List of all users retrieved.</li><li>- POST /api/auth/forgot-username → 200 | Username retrieval email sent.</li><li>- POST /api/auth/reset-password → 200 | Password reset successful.</li><li>- GET /api/auth/profile/admin_1763192079862 → 200 | User profile retrieved.</li><li>- GET /api/users → 200 | List of users successfully retrieved.</li><li>- GET /api/dashboard/stats → 200 | Dashboard statistics successfully fetched.</li><li>- GET /api/admin/gemini/users → 200 | Admin user list successfully retrieved.</li><li>- GET /api/users/1 → 200 | Specific user retrieved.</li><li>- DELETE /api/users/1 → 200 | User successfully deleted.</li></pre>
+            </details>
+        </div>
+
+        <hr style='margin-top:30px;'>
+        <p style='color:#555;'>✅ AI summary generated and stored successfully.</p>
+    </body>
+    </html>
