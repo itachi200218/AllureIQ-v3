@@ -166,8 +166,8 @@ This makes the AllureIQ dashboard more **fault-tolerant, faster, and usable in b
 
 ### 3️⃣ Paste this into settings.xml
     Replace:
--       YOUR_GITHUB_USERNAME → your GitHub username
--      YOUR_GITHUB_TOKEN → your classic PAT token
+-    YOUR_GITHUB_USERNAME → your GitHub username
+-    YOUR_GITHUB_TOKEN → your classic PAT token
 ```xml
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
