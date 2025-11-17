@@ -203,4 +203,4 @@ allure serve ./allure-results
 **Role:** SDET (Software Development Engineer in Test)  
 **Organization:** Cognizant Technology Solutions  
 **Specialization:** Automation Frameworks, AI-driven Testing, CI/CD, Spring Boot, and Data Intelligence  
-**Version:** `allureiq-framework v3.2.2`
+**Version:** `allureiq-framework v3.2.6`
