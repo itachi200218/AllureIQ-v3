@@ -57,7 +57,7 @@ Data stored in MongoDB:
 <dependency>
   <groupId>com.allureiq</groupId>
   <artifactId>allureiq-framework</artifactId>
-  <version>3.2.2</version>
+  <version>3.2.6</version>
 </dependency>
 ```
 
@@ -115,7 +115,7 @@ Data stored in MongoDB:
     <dependency>
         <groupId>com.allureiq</groupId>
         <artifactId>allureiq-framework</artifactId>
-        <version>3.1.3</version>
+        <version>3.2.6</version>
     </dependency>
 
     <dependency>
