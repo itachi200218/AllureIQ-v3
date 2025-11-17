@@ -44,7 +44,7 @@ The search bar now supports a **serverless + hybrid search engine** with intelli
 ⭐ Key Enhancements
 - **No server required** — connects to **MongoDB Atlas directly through Java JAR**, without Spring Boot.
 - **Local JSON caching** — stores search results locally to ensure the dashboard works even if MongoDB or server is unavailable.
-- **Automatic fallback mode** -  
+- **Automatic fallback mode** —
   Cloud MongoDB → If unavailable → Use local JSON cache
 - **Fuzzy matching** — supports smart partial and typo-based search for projects, endpoints, logs, and AI reports.
 - **Real-time results** — instantly displays matches from MongoDB or cache.
