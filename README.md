@@ -1,4 +1,4 @@
-## 🧠 AllureIQ Framework v3.2.2 — AI-Powered Unified Test Intelligence Platform  
+## 🧠 AllureIQ Framework v3.2.6 — AI-Powered Unified Test Intelligence Platform  
 **Developed by Adepu Chaitanya — SDET @ Cognizant**
 
 ### 🚀 Overview  
@@ -50,7 +50,7 @@ Data stored in MongoDB:
 - Integrated **GitHub Actions** for continuous testing and deployment.  
 - Auto-runs tests, generates Allure reports, and tags releases.  
 - Published a Maven package:
-  **`allureiq-framework` v3.2.2**  
+  **`allureiq-framework` v3.2.6**  
   usable as a reusable dependency in any project.
 
 ```xml
