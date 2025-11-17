@@ -2,7 +2,7 @@
 **Developed by Adepu Chaitanya — SDET @ Cognizant**
 
 ### 🚀 Overview  
-**AllureIQ Framework** is an advanced **AI-driven automation and reporting ecosystem** designed and developed by **Adepu Chaitanya**, currently working as a **Software Development Engineer in Test (SDET) at Cognizant**.  
+**AllureIQ Framework** is an advanced **AI-driven automation and reporting ecosystem**  designed and developed by **Adepu Chaitanya**, currently working as a **Software Development Engineer in Test (SDET) at Cognizant**.  
 
 This framework integrates **REST API testing**, **AI intelligence**, **real-time analytics**, and **CI/CD automation**, delivering a complete **end-to-end intelligent test and reporting solution**. It automatically analyzes test results, identifies trends, and produces **AI-generated summaries and insights** — just like an observability dashboard for QA.
 
