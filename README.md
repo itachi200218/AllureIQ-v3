@@ -152,7 +152,38 @@ This makes the AllureIQ dashboard more **fault-tolerant, faster, and usable in b
 
 ```
 ---
+# 📌 Maven GitHub Packages Setup
 
+# 1️⃣ Create settings.xml in your .m2 folder:
+#    Windows → C:\Users\<you>\.m2\settings.xml
+#    Mac/Linux → ~/.m2/settings.xml
+
+# 2️⃣ Create a Classic GitHub Token:
+#    GitHub → Settings → Developer Settings → Personal Access Tokens → Classic
+#    Enable:
+#       ✔ read:packages
+#       ✔ write:packages
+
+# 3️⃣ Paste this into settings.xml
+#    Replace:
+#       YOUR_GITHUB_USERNAME → your GitHub username
+#       YOUR_GITHUB_TOKEN → your classic PAT token
+```xml
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 
+                              https://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <servers>
+        <server>
+            <id>github</id>
+            <username>YOUR_GITHUB_USERNAME</username>
+            <password>YOUR_GITHUB_TOKEN</password>
+        </server>
+    </servers>
+
+</settings>
+```
+---
 ## ⚡ Build & Run Tests
 
 1. Open a terminal in your project root directory.
