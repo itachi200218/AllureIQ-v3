@@ -37,12 +37,19 @@ Data stored in MongoDB:
 
 ---
 
-### 🔍 AI-Powered Search Interface  
-- Built using **Spring Boot**, **HTML**, **CSS**, and **JavaScript**.  
-- Features a **real-time search bar** for querying MongoDB:  
-  - Search by response code (`200`, `404`, etc.) or project name.  
-  - Displays results with **AI-generated summaries of top 10 logs**.  
-- Works as a **test analytics dashboard** for QA and DevOps teams.
+# 🔍 New Enhanced Search Bar (v3.2.6 Upgrade)
+
+The search bar now supports a **serverless + hybrid search engine** with intelligent fallback and fuzzy matching.
+
+⭐ Key Enhancements
+- **No server required** — connects to **MongoDB Atlas directly through Java JAR**, without Spring Boot.
+- **Local JSON caching** — stores search results locally to ensure the dashboard works even if MongoDB or server is unavailable.
+- **Automatic fallback mode**  
+  Cloud MongoDB → If unavailable → Use local JSON cache
+- **Fuzzy matching** — supports smart partial and typo-based search for projects, endpoints, logs, and AI reports.
+- **Real-time results** — instantly displays matches from MongoDB or cache.
+
+This makes the AllureIQ dashboard more **fault-tolerant, faster, and usable in both online and offline modes**.
 
 ---
 
