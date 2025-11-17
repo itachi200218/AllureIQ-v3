@@ -37,7 +37,7 @@ Data stored in MongoDB:
 
 ---
 
-# 🔍 New Enhanced Search Bar (v3.2.6 Upgrade)
+### 🔍 New Enhanced Search Bar (v3.2.6 Upgrade)
 
 The search bar now supports a **serverless + hybrid search engine** with intelligent fallback and fuzzy matching.
 
