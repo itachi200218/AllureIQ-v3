@@ -2,6 +2,7 @@ package org.allureIQ.models;
 
 import com.mongodb.client.*;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 import io.github.cdimascio.dotenv.Dotenv;
 
 import java.io.File;
@@ -13,6 +14,15 @@ public class MongoConnector {
     private static final String uri = dotenv.get("MONGO_URL");
     private static final String dbName = "LuffyFramework";
     private static MongoClient mongoClient = null;
+
+    // ⭐ ALL collections used in AllureIQ (add more if required)
+    private static final List<String> COLLECTIONS = List.of(
+            "ai_reports",
+            "ai_executions",
+            "ai_sessions",
+            "ai_context_logs",
+            "ai_hints"
+    );
 
     // 🔹 Automatically detect project & subproject
     private static final String projectName = System.getProperty("project.name",
@@ -46,6 +56,38 @@ public class MongoConnector {
         }
         return mongoClient.getDatabase(dbName);
     }
+
+    // ⭐ OFFLINE DB EXPORT (Mongo → JSON for AI search)
+    public static String buildOfflineJsonDump() {
+        Document offlineData = new Document();
+        Map<String, List<Document>> offlineMap = new LinkedHashMap<>();
+
+        MongoDatabase db = connect();
+
+        for (String col : COLLECTIONS) {
+            try {
+                MongoCollection<Document> collection = db.getCollection(col);
+                List<Document> docs = new ArrayList<>();
+
+                for (Document d : collection.find()) {
+                    Object id = d.get("_id");
+                    if (id instanceof ObjectId) {
+                        d.put("_id", ((ObjectId) id).toHexString());
+                    }
+                    docs.add(d);
+                }
+
+                offlineMap.put(col, docs);
+            } catch (Exception ignored) {}
+        }
+
+        offlineData.put("results", offlineMap);
+        return offlineData.toJson();
+    }
+
+    // ============================================
+    // ========= YOUR EXISTING CODE BELOW ==========
+    // ============================================
 
     // ✅ Save AI summary report
     public static void saveReport(String testName, String aiSummary, String records) {
@@ -87,21 +129,20 @@ public class MongoConnector {
         } catch (Exception e) {
             System.err.println("⚠️ Failed to save execution: " + e.getMessage());
         }
+
         String sessionId = UUID.randomUUID().toString();
         updateSessionHierarchy(sessionId);
-
     }
-    // ✅ Create or update session hierarchy for project/subproject
+
+    // ✅ Create or update session hierarchy
     public static void updateSessionHierarchy(String sessionId) {
         try {
             MongoDatabase db = connect();
             MongoCollection<Document> sessionCollection = db.getCollection("ai_sessions");
 
-            // Check if project already exists
             Document existingProject = sessionCollection.find(new Document("projectName", projectName)).first();
 
             if (existingProject == null) {
-                // If project not found, create new entry
                 Document newProject = new Document("projectName", projectName)
                         .append("createdAt", new Date())
                         .append("subprojects", new ArrayList<>(List.of(
@@ -115,19 +156,16 @@ public class MongoConnector {
                 sessionCollection.insertOne(newProject);
                 System.out.println("🆕 Created new project in ai_sessions → " + projectName + " / " + subProjectName);
             } else {
-                // If project exists, check if subproject is already listed
                 List<Document> subprojects = existingProject.getList("subprojects", Document.class, new ArrayList<>());
                 Optional<Document> existingSub = subprojects.stream()
                         .filter(sp -> sp.getString("name").equals(subProjectName))
                         .findFirst();
 
                 if (existingSub.isPresent()) {
-                    // Add session to existing subproject
                     List<Document> sessions = existingSub.get().getList("sessions", Document.class, new ArrayList<>());
                     sessions.add(new Document("sessionId", sessionId).append("createdAt", new Date()));
                     existingSub.get().put("sessions", sessions);
                 } else {
-                    // Add new subproject under the same project
                     subprojects.add(new Document("name", subProjectName)
                             .append("sessions", List.of(
                                     new Document("sessionId", sessionId)
@@ -135,7 +173,6 @@ public class MongoConnector {
                             )));
                 }
 
-                // Update back in DB
                 existingProject.put("subprojects", subprojects);
                 sessionCollection.replaceOne(new Document("projectName", projectName), existingProject);
                 System.out.println("📁 Updated ai_sessions for → " + projectName + " / " + subProjectName);
@@ -144,7 +181,6 @@ public class MongoConnector {
             System.err.println("⚠️ Failed to update session hierarchy: " + e.getMessage());
         }
     }
-
 
     public static List<Document> getLastReports(int limit) {
         List<Document> reports = new ArrayList<>();
@@ -236,4 +272,21 @@ public class MongoConnector {
             return new Document[]{null, null};
         }
     }
+    // 🔥 UNIVERSAL findAll() method (works for any collection)
+    public <T> List<Document> findAll(Class<T> clazz, String collectionName) {
+        List<Document> list = new ArrayList<>();
+        try {
+            MongoDatabase db = connect();
+            MongoCollection<Document> col = db.getCollection(collectionName);
+
+            for (Document d : col.find()) {
+                list.add(d);
+            }
+
+        } catch (Exception e) {
+            System.err.println("⚠️ findAll() failed for collection " + collectionName + ": " + e.getMessage());
+        }
+        return list;
+    }
+
 }

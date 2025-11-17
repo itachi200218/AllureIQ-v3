@@ -1,4 +1,5 @@
 package org.allureIQ.AI;
+import org.bson.types.ObjectId;
 
 import io.qameta.allure.Allure;
 import org.allureIQ.models.MongoConnector;
@@ -18,6 +19,48 @@ import java.util.stream.Collectors;
  * ✅ Unified HTML report attached to Allure
  */
 public class AiSummaryReporter {
+    // 🔥 ADD HERE (right under the class declaration)
+    private static final List<String> COLLECTIONS = Arrays.asList(
+            "ai_reports",
+            "ai_executions",
+            "ai_sessions"
+    );
+    private static final MongoConnector mongo = new MongoConnector();
+
+    // =======================================================
+//  🔍 PURE JAVA OFFLINE SEARCH (NO MONGO, NO API)
+// =======================================================
+    public static Map<String, List<Document>> searchOfflineJava(String keyword) {
+        keyword = keyword.toLowerCase();
+
+        Map<String, List<Document>> results = new LinkedHashMap<>();
+
+        try {
+
+            for (String col : COLLECTIONS) {
+                try {
+                    List<Document> docs = mongo.findAll(Document.class, col);
+
+                    List<Document> matched = new ArrayList<>();
+
+                    for (Document d : docs) {
+                        String json = d.toJson().toLowerCase();
+                        if (json.contains(keyword)) {
+                            matched.add(d);
+                        }
+                    }
+
+                    results.put(col, matched);
+
+                } catch (Exception ignored) {}
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return results;
+    }
 
     private static final String projectName = System.getProperty("project.name",
             System.getenv("PROJECT_NAME") != null ? System.getenv("PROJECT_NAME") : null);
@@ -167,147 +210,245 @@ public class AiSummaryReporter {
         }
 
 
-        // ✅ Step 2: Stylish HTML
+        // STEP 0: Build offline MongoDB JSON dump for offline search
+        Document offlineData = new Document();
+        Map<String, List<Document>> offlineMap = new LinkedHashMap<>();
+
+        for (String col : COLLECTIONS) {
+            try {
+                List<Document> docs = mongo.findAll(Document.class, col);
+
+                for (Document d : docs) {
+                    Object id = d.get("_id");
+                    if (id instanceof ObjectId)
+                        d.put("_id", ((ObjectId) id).toHexString());
+                }
+
+                offlineMap.put(col, docs);
+            } catch (Exception ignored) {}
+        }
+
+        offlineData.put("results", offlineMap);
+
+        String offlineJson = offlineData.toJson();
+
+// =========================================================
+//  YOUR ORIGINAL HTML + OFFLINE JSON INJECTION
+// =========================================================
+
         String htmlReport = """
-            <html>
-            <head>
-                <meta charset='UTF-8'>
-                <style>
-                    body { font-family:'Segoe UI',sans-serif;background:#f5f8fa;padding:25px;line-height:1.6; }
-                    h2,h3 { color:#0D47A1;margin-bottom:8px; }
-                    .subproject-card {
-                        background:#ffffff;
-                        border-left:6px solid #4285F4;
-                        border-radius:10px;
-                        padding:15px 20px;
-                        margin-bottom:20px;
-                        box-shadow:0 4px 10px rgba(0,0,0,0.08);
-                        transition: transform 0.2s ease;
-                    }
-                    .subproject-card:hover { transform: translateY(-2px); }
-                    .global-summary {
-                        background:#E3F2FD;
-                        padding:18px;
-                        border-left:6px solid #1A73E8;
-                        border-radius:10px;
-                        margin-bottom:25px;
-                    }
-                    .summary-footer {
-                        background:#E8EAF6;
-                        padding:15px;
-                        border-left:6px solid #3F51B5;
-                        border-radius:10px;
-                        margin-top:30px;
-                        font-size:14px;
-                    }
-                    .ai-search {
-                        background:#fff;
-                        border-left:6px solid #6C63FF;
-                        border-radius:10px;
-                        padding:15px;
-                        margin-bottom:25px;
-                        box-shadow:0 4px 10px rgba(0,0,0,0.08);
-                    }
-                    p { margin:6px 0; }
-                    code { background:#f0f3f6;padding:2px 5px;border-radius:4px; }
-                    input,button { font-size:14px; }
-                </style>
-            </head>
-            <body>
-                <h2>📊 AI Subproject Analysis — %s</h2>
+    <html>
+    <head>
+        <meta charset='UTF-8'>
+        <style>
+            body { font-family:'Segoe UI',sans-serif;background:#f5f8fa;padding:25px;line-height:1.6; }
+            h2,h3 { color:#0D47A1;margin-bottom:8px; }
+            .subproject-card {
+                background:#ffffff;
+                border-left:6px solid #4285F4;
+                border-radius:10px;
+                padding:15px 20px;
+                margin-bottom:20px;
+                box-shadow:0 4px 10px rgba(0,0,0,0.08);
+                transition: transform 0.2s ease;
+            }
+            .subproject-card:hover { transform: translateY(-2px); }
+            .global-summary {
+                background:#E3F2FD;
+                padding:18px;
+                border-left:6px solid #1A73E8;
+                border-radius:10px;
+                margin-bottom:25px;
+            }
+            .summary-footer {
+                background:#E8EAF6;
+                padding:15px;
+                border-left:6px solid #3F51B5;
+                border-radius:10px;
+                margin-top:30px;
+                font-size:14px;
+            }
+            .ai-search {
+                background:#fff;
+                border-left:6px solid #6C63FF;
+                border-radius:10px;
+                padding:15px;
+                margin-bottom:25px;
+                box-shadow:0 4px 10px rgba(0,0,0,0.08);
+            }
+            p { margin:6px 0; }
+            code { background:#f0f3f6;padding:2px 5px;border-radius:4px; }
+            input,button { font-size:14px; }
+        </style>
+    </head>
+    <body>
 
-                <div class='ai-search'>
-                    <h3>🔍 Search Historical AI Data</h3>
-                    <input id='searchInput' type='text' placeholder='Search keyword (e.g., login, error, endpoint)'
-                        style='padding:8px;width:60%%;border-radius:8px;border:1px solid #ccc;'>
-                    <button onclick='searchAIData()'
-                        style='padding:8px 15px;background-color:#0078D7;color:white;border:none;border-radius:8px;margin-left:10px;'>
-                        Search
-                    </button>
-                    <div id='searchResults' style='margin-top:20px;'></div>
-                </div>
+        <!-- PROJECT TITLE -->
+        <h2>📊 AI Subproject Analysis — %s</h2>
 
-                %s
+        <!-- SEARCH BAR -->
+        <div class='ai-search'>
+            <h3>🔍 Search Historical AI Data</h3>
+            <input id='searchInput' type='text' placeholder='Search keyword (e.g., login, error, endpoint)'
+                style='padding:8px;width:60%%;border-radius:8px;border:1px solid #ccc;'>
+            <button onclick='searchAIData()'
+                style='padding:8px 15px;background-color:#0078D7;color:white;border:none;border-radius:8px;margin-left:10px;'>
+                Search
+            </button>
+            <div id='searchResults' style='margin-top:20px;'></div>
+        </div>
 
-             <script>
-                 async function searchAIData() {
-                     const query = document.getElementById("searchInput").value.trim();
-                     const resultsDiv = document.getElementById("searchResults");
-                     if (!query) {
-                         resultsDiv.innerHTML = "<p style='color:red;'>Please enter a search keyword.</p>";
-                         return;
-                     }
-                     resultsDiv.innerHTML = "<p>⏳ Searching...</p>";
+        %s
+
+        <!-- 🔥 OFFLINE MONGODB JSON EMBEDDED HERE -->
+       <script>
+                               window.__OFFLINE_SEARCH_DATA__ = %s;
+                       </script>
                 
-                     // ✅ Automatically detect environment
-                     const isLocal = window.location.hostname.includes("localhost") || window.location.hostname.startsWith("192.");
-                     const baseUrl = isLocal
-                         ? "http://localhost:8081"  // local Spring Boot
-                         : "https://ai-allure-reuse-luffy.onrender.com"; // deployed Render backend
+                       <script>
+                           async function searchAIData() {
+                               const query = document.getElementById("searchInput").value.trim();
+                               const resultsDiv = document.getElementById("searchResults");
                 
-                     try {
-                         const res = await fetch(`${baseUrl}/api/search?q=${encodeURIComponent(query)}`);
-                         if (!res.ok) throw new Error("Server not reachable");
-                         const data = await res.json();
+                               if (!query) {
+                                   resultsDiv.innerHTML = "<p style='color:red;'>Please enter a search keyword.</p>";
+                                   return;
+                               }
                 
-                         if (!data.results || Object.keys(data.results).length === 0) {
-                             resultsDiv.innerHTML = "<p>No results found for <b>" + query + "</b>.</p>";
-                             return;
-                         }
+                               resultsDiv.innerHTML = "<p>⏳ Searching...</p>";
                 
-                         let html = "";
+                               const isLocal =
+                                   window.location.hostname.includes("localhost") ||
+                                   window.location.hostname.startsWith("192.");
                 
-                         // ✅ Show AI summary FIRST (top of search results)
-                        // ✅ Enhanced AI summary (bullet-point style)
-                            if (data.ai_summary) {
-                                html += `
-                                    <div style="
-                                        background:linear-gradient(135deg,#ede7f6,#f3e5f5);
-                                        border-left:6px solid #7B1FA2;
-                                        padding:15px 20px;
-                                        border-radius:12px;
-                                        box-shadow:0 3px 10px rgba(123,31,162,0.15);
-                                        margin-bottom:20px;
-                                        font-family:'Segoe UI',sans-serif;
-                                    ">
-                                        <h3 style="color:#4A148C;margin-bottom:10px;">🧠 AI Summary Insights</h3>
-                                        <ul style="list-style:none;padding-left:0;margin:0;">
-                                            ${data.ai_summary.split('\\n').map(line => {
-                                                if (line.trim().startsWith('-')) {
-                                                    return `<li style="margin-bottom:6px;">🔹 ${line.replace('-', '').trim()}</li>`;
-                                                } else if (line.trim().startsWith('*')) {
-                                                    return `<li style="margin-bottom:6px;">✨ ${line.replace('*', '').trim()}</li>`;
-                                                } else {
-                                                    return `<li style="margin-bottom:6px;">💡 ${line.trim()}</li>`;
+                               const baseUrl = isLocal
+                                   ? "http://localhost:8081"
+                                   : "https://ai-allure-reuse-luffy.onrender.com";
+                
+                               try {
+                                   const res = await fetch(`${baseUrl}/api/search?q=${encodeURIComponent(query)}`);
+                                   if (!res.ok) throw new Error("Server not reachable");
+                
+                                   const data = await res.json();
+                
+                                   if (!data.results || Object.keys(data.results).length === 0) {
+                                       resultsDiv.innerHTML =
+                                           "<p>No results found for <b>" + query + "</b>.</p>";
+                                       return;
+                                   }
+                
+                                   let html = "";
+                
+                                   if (data.ai_summary) {
+                                       html += `
+                                           <div style="
+                                               background:linear-gradient(135deg,#ede7f6,#f3e5f5);
+                                               border-left:6px solid #7B1FA2;
+                                               padding:15px 20px;
+                                               border-radius:12px;
+                                               box-shadow:0 3px 10px rgba(123,31,162,0.15);
+                                               margin-bottom:20px;
+                                               font-family:'Segoe UI',sans-serif;
+                                           ">
+                                               <h3 style="color:#4A148C;margin-bottom:10px;">🧠 AI Summary Insights</h3>
+                                               <ul style="list-style:none;padding-left:0;margin:0;">
+                                                   ${data.ai_summary.split('\\n').map(line => {
+                                                       if (line.trim().startsWith('-')) {
+                                                           return `<li style="margin-bottom:6px;">🔹 ${line.replace('-', '').trim()}</li>`;
+                                                       } else if (line.trim().startsWith('*')) {
+                                                           return `<li style="margin-bottom:6px;">✨ ${line.replace('*', '').trim()}</li>`;
+                                                       } else {
+                                                           return `<li style="margin-bottom:6px;">💡 ${line.trim()}</li>`;
+                                                       }
+                                                   }).join('')}
+                                               </ul>
+                                           </div>`;
+                                   }
+                
+                                   for (const [collection, docs] of Object.entries(data.results)) {
+                                       html += `<h4 style='color:#0078D7;'>📂 ${collection}</h4>`;
+                                       if (docs.length === 0) {
+                                           html += "<p><i>No entries found.</i></p>";
+                                       } else {
+                                           docs.forEach(doc => {
+                                               html += `<pre style='background:#f8f9fa;padding:10px;border-radius:6px;border:1px solid #ddd;'>${JSON.stringify(doc,null,2)}</pre>`;
+                                           });
+                                       }
+                                   }
+                
+                                   resultsDiv.innerHTML = html;
+                
+                               } catch (err) {
+                                   resultsDiv.innerHTML =
+                                       "<p style='color:orange;'>⚠️ Server offline — using offline search...</p>";
+                                   runOfflineSearch(query);
+                               }
+                           }
+                
+                           <!-- ✅ ADDED HERE (ONLY THIS LINE WAS MISSING) -->
+                         const OFFLINE_DATA = window.__OFFLINE_SEARCH_DATA__ || null;
+                
+                                            function runOfflineSearch(query) {
+                                                const resultsDiv = document.getElementById("searchResults");
+                                                const q = query.toLowerCase();
+                
+                                                if (!OFFLINE_DATA) {
+                                                    resultsDiv.innerHTML += `<p style='color:red;'>❌ Offline database not embedded in report.</p>`;
+                                                    return;
                                                 }
-                                            }).join('')}
-                                        </ul>
-                                    </div>`;
-                            }
                 
-                         // ✅ Then show all MongoDB collection results
-                         for (const [collection, docs] of Object.entries(data.results)) {
-                             html += `<h4 style='color:#0078D7;'>📂 ${collection}</h4>`;
-                             if (docs.length === 0) {
-                                 html += "<p><i>No entries found.</i></p>";
-                             } else {
-                                 docs.forEach(doc => {
-                                     html += `<pre style='background:#f8f9fa;padding:10px;border-radius:6px;border:1px solid #ddd;'>${JSON.stringify(doc,null,2)}</pre>`;
-                                 });
-                             }
-                         }
+                                                let matches = [];
                 
-                         resultsDiv.innerHTML = html;
-                     } catch (err) {
-                         resultsDiv.innerHTML = `<p style='color:red;'>❌ Failed to fetch data: ${err.message}</p>`;
-                     }
-                 }
-                 </script>
+                                                // ⭐ 1. If query matches collection name → return entire collection
+                                                for (const [collectionName, docs] of Object.entries(OFFLINE_DATA.results)) {
+                                                    if (collectionName.toLowerCase().includes(q)) {
+                                                        matches.push(...docs);
+                                                    }
+                                                }
                 
+                                                // ⭐ 2. Fallback: search inside documents
+                                                if (matches.length === 0) {
+                                                    Object.values(OFFLINE_DATA.results).forEach(collection => {
+                                                        collection.forEach(doc => {
+                                                            const str = JSON.stringify(doc).toLowerCase();
+                                                            if (str.includes(q)) {
+                                                                matches.push(doc);
+                                                            }
+                                                        });
+                                                    });
+                                                }
                 
-            </body>
-            </html>
-            """.formatted(projectName, finalSummary.toString());
+                                                if (matches.length === 0) {
+                                                    resultsDiv.innerHTML += `<p style='color:red;'>No offline matches for <b>${query}</b>.</p>`;
+                                                    return;
+                                                }
+                
+                                                let html = `<p style='color:green;'>Offline results found: ${matches.length}</p>`;
+                
+                                                matches.forEach((doc, i) => {
+                                                    html += `
+                                                        <div style="
+                                                            background:#f1f1f1;
+                                                            margin:10px 0;
+                                                            padding:10px;
+                                                            border-radius:6px;
+                                                            font-family:monospace;
+                                                            white-space:pre-wrap;
+                                                        ">
+                                                            <b>Result ${i + 1}</b><br>
+                                                            ${JSON.stringify(doc, null, 2)}
+                                                        </div>
+                                                    `;
+                                                });
+                
+                                                resultsDiv.innerHTML += html;
+                                            }
+                
+                       </script>
+                
+    </body>
+    </html>
+""".formatted(projectName, finalSummary.toString(), offlineJson);
 
         // ✅ Step 3: Attach to Allure
         Allure.addAttachment("AI Unified Report (" + projectName + ")", "text/html",

@@ -1,0 +1,75 @@
+    <html>
+    <head>
+    <meta charset='UTF-8'>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background:#f5f7fa; padding:25px; }
+        h2 { color:#0078D7; margin-bottom:5px; }
+        h3 { color:#333; }
+        .timestamp { color:#666; font-size:14px; margin-bottom:12px; }
+        .card {
+            background:#fff; border-radius:12px; padding:20px; margin-bottom:20px;
+            box-shadow:0 4px 10px rgba(0,0,0,0.08);
+        }
+        .summary { border-left:6px solid #0078D7; }
+        .issues { border-left:6px solid #DC3545; }
+        .rootcause { border-left:6px solid #FFC107; }
+        .suggestions { border-left:6px solid #28A745; }
+        .endpoints { border-left:6px solid #6C63FF; }
+        .errors { border-left:6px solid #FF5733; }
+        ul { padding-left:20px; }
+        li { margin:6px 0; line-height:1.6; }
+        .endpoint-list li::before { content: "🌐 "; }
+        .issue-list li::before { content: "⚠️ "; }
+        .suggestion-list li::before { content: "💡 "; }
+        .rootcause-list li::before { content: "🧠 "; }
+        .error-list li::before { content: "❌ "; }
+        details { margin-bottom:15px; }
+        summary { cursor:pointer; font-weight:600; }
+        .comparison { color:#222; font-size:15px; margin-bottom:12px; line-height:1.5; }
+    </style>
+    </head>
+    <body>
+        <h2>🤖 AI Test Intelligence Report — Unified View</h2>
+        <div class='timestamp'>🕒 Generated: 2025-11-17T22:38:08.241313400</div>
+
+        <div class='card summary'>
+            <h3>🧾 Overall Summary</h3>
+            <p>- Total Unique APIs Tested: 6 
+- Success Rate: 100% (all requests returned successful status codes)
+- General Performance: The APIs demonstrated robust performance with no errors or timeouts noted.
+- Included Endpoints: Authentication was not tested, but CRUD (Create, Read, Update, Delete) operations were thoroughly validated.</p>
+        </div>
+
+        <div class='card issues'>
+            <h3>⚠️ Key Issues</h3>
+            <ul class='issue-list'>📊 No API executions found in MongoDB (ai_executions).</ul>
+        </div>
+
+        <div class='card rootcause'>
+            <h3>🧠 Technical Root Cause Insights</h3>
+            <ul class='rootcause-list'><li>- None Detected: All tested requests returned successful status codes.</li></ul>
+        </div>
+
+        <div class='card suggestions'>
+            <h3>💡 Suggestions</h3>
+            <ul class='suggestion-list'><li>- Not applicable as there were no failures.</li></ul>
+        </div>
+
+        <div class='card endpoints'>
+            <h3>🌐 Endpoints Tested</h3>
+            <ul class='endpoint-list'><li>- Implement More Diverse Testing: Consider adding tests for negative scenarios to validate error handling.</li><li>- Payload Validation: Ensure that the API can handle and appropriately respond to invalid or unexpected payload structures.</li><li>- Logging Improvements: Enhance logging mechanisms to capture more detailed request/response cycles for debugging.</li><li>- Retry Logic: Implement retry logic for scenarios where external dependencies are involved.</li></ul>
+        </div>
+
+        <div class='card errors'>
+            <h3>❌ Error Breakdown</h3>
+            <details open>
+                <summary>Click to view error logs</summary>
+                <pre><li>- GET https://student-job-tracker-1-q8rh.onrender.com/api/jobs → 200: Successfully retrieved job listings.</li><li>- POST https://student-job-tracker-1-q8rh.onrender.com/api/jobs → 201: Job created successfully.</li><li>- PUT https://student-job-tracker-1-q8rh.onrender.com/api/jobs/67f6ce82dcb0837b74b7facc → 200: Job updated successfully.</li><li>- DELETE https://student-job-tracker-1-q8rh.onrender.com/api/jobs/691b5349b1191e09efa27a34 → 200: Job deleted successfully.</li></pre>
+            </details>
+        </div>
+
+        <hr style='margin-top:30px;'>
+        <p style='color:#555;'>✅ AI summary generated and stored successfully.</p>
+    </body>
+    </html>
+
